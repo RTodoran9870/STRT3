@@ -103,21 +103,15 @@ public class ListActivity extends AppCompatActivity {
                             startActivity(intent);
                         }
 
+                        if (id==R.id.simulate){
+                            Intent intent = new Intent(ctxt, Ring.class);
+                            startActivity(intent);
+                        }
+
 
                         return true;
                     }
                 });
-
-
-
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
     }
 
 

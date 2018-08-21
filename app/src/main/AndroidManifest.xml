@@ -24,12 +24,13 @@
         <activity
             android:name=".ListActivity"
             android:label="@string/title_activity_list"
-            android:theme="@style/AppTheme.NoActionBar" />
-
+            android:theme="@style/profpagestyle" />
         <activity
             android:name=".MyProfile"
             android:label="@string/title_activity_my_profile"
-            android:theme="@style/profpagestyle"></activity>
+            android:theme="@style/profpagestyle" />
+        <activity android:name=".Ring" />
+        <activity android:name=".PaymentDetails" />
     </application>
 
 </manifest>

@@ -36,6 +36,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void run() {
                 openAlarmManager();
+                finish();
             }
         }, 2500L);
 

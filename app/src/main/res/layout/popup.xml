@@ -4,10 +4,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    style="@style/profpagestyle">
 
     <TimePicker
         android:id="@+id/TimePickerID"
+        android:numbersSelectorColor="@color/startblue"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
@@ -18,17 +20,41 @@
 
     <Button
         android:id="@+id/PopupButtonID"
+        style="?android:attr/borderlessButtonStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
+        android:paddingTop="25dp"
         android:layout_marginTop="8dp"
-        android:text="Button"
+        android:text="Confirm"
+        android:textColor="@color/startblue"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.95"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/TimePickerID" />
+        app:layout_constraintTop_toBottomOf="@+id/TimePickerID"
+        app:layout_constraintVertical_bias="0.75" />
+
+    <Button
+        android:id="@+id/PopupButtonID2"
+        style="?android:attr/borderlessButtonStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:paddingTop="25dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:text="Cancel"
+        android:textColor="@color/startblue"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/PopupButtonID"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/TimePickerID"
+        app:layout_constraintVertical_bias="0.75" />
 
 
 </android.support.constraint.ConstraintLayout>

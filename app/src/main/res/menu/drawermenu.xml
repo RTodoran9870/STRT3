@@ -3,6 +3,8 @@
 
     <item android:id="@+id/nav_account"
         android:title="My account"/>
+    <item android:id="@+id/simulate"
+        android:title="Simulate payment"/>
     <item android:id="@+id/nav_stats"
         android:title="Stats"/>
     <item android:id="@+id/nav_rewards"

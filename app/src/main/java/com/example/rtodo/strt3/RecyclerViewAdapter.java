@@ -83,6 +83,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         public TextView alarmhour;
         public TimePicker mTimePicker;
         public Button mButton;
+        public Button mmButton;
 
         public ViewHolder(@NonNull View view) {
             super(view);
@@ -124,9 +125,17 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             View view = mInflater.inflate(R.layout.popup, null);
             mTimePicker = view.findViewById(R.id.TimePickerID);
             mButton = view.findViewById(R.id.PopupButtonID);
+            mmButton = view.findViewById(R.id.PopupButtonID2);
             mAlertDialogBuilder.setView(view);
             mDialog = mAlertDialogBuilder.create();
             mDialog.show();
+
+            mmButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    mDialog.dismiss();
+                }
+            });
 
             mButton.setOnClickListener(new View.OnClickListener() {
                 @Override
