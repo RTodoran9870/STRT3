@@ -26,16 +26,10 @@
             android:label="@string/title_activity_list"
             android:theme="@style/AppTheme.NoActionBar" />
 
-        <service
-            android:name=".AlarmService"
-            android:enabled="true" />
-
-        <receiver android:name=".AlarmReceiver" />
-
         <activity
-            android:name=".ListActivityDrawer"
-            android:label="@string/title_activity_list_drawer"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:name=".MyProfile"
+            android:label="@string/title_activity_my_profile"
+            android:theme="@style/profpagestyle"></activity>
     </application>
 
 </manifest>

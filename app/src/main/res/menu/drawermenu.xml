@@ -2,10 +2,13 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item android:id="@+id/nav_account"
-        android:title="My accout"/>
-    <item android:id="@+id/nav_settings"
-        android:title="Settings"/>
+        android:title="My account"/>
+    <item android:id="@+id/nav_stats"
+        android:title="Stats"/>
+    <item android:id="@+id/nav_rewards"
+        android:title="My rewards"/>
     <item android:id="@+id/nav_logout"
         android:title="Log out"/>
+
 
 </menu>
