@@ -10,7 +10,8 @@
         android:id="@+id/CardViewID"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:elevation="10dp">
+        android:elevation="10dp"
+        app:cardElevation="2dp">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -84,20 +85,20 @@
             <TableRow
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:orientation="horizontal"
                 android:layout_alignBaseline="@id/TableID1"
-                android:layout_below="@+id/tableID">
+                android:layout_alignParentRight="true"
+                android:layout_below="@+id/tableID"
+                android:orientation="horizontal">
 
 
                 <TextView
                     android:id="@+id/VibrateTextID"
-                    android:layout_marginRight="5dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginRight="5dp"
+                    android:layout_marginTop="29dp"
                     android:text="Vibrate"
                     android:textSize="16sp"
-                    android:layout_marginTop="29dp"
                     android:textStyle="bold" />
 
                 <ImageView
@@ -105,11 +106,11 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="6dp"
+                    android:layout_marginTop="15dp"
                     android:adjustViewBounds="true"
                     android:maxHeight="42dp"
                     android:maxWidth="42dp"
                     android:paddingTop="9dp"
-                    android:layout_marginTop="15dp"
                     android:scaleType="fitCenter"
                     app:srcCompat="@drawable/ic_baseline_vibration_42px" />
             </TableRow>

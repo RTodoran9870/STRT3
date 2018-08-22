@@ -31,6 +31,8 @@
             android:theme="@style/profpagestyle" />
         <activity android:name=".Ring" />
         <activity android:name=".PaymentDetails" />
+        <activity android:name=".Onboarding"
+            android:theme="@style/profpagestyle"></activity>
     </application>
 
 </manifest>

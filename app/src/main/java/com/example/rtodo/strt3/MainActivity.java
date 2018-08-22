@@ -21,6 +21,7 @@ public class MainActivity extends AppCompatActivity {
 
     private Context context;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -28,15 +29,24 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
+        final Boolean isFirstRun = getSharedPreferences("PREFERENCE", MODE_PRIVATE)
+                .getBoolean("isFirstRun", true);
 
 
         Handler mHandler = new Handler();
         mHandler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                openAlarmManager();
-                finish();
+                if (isFirstRun){
+                    getSharedPreferences("PREFERENCE", MODE_PRIVATE).edit()
+                            .putBoolean("isFirstRun", false).commit();
+                    openOnboarding();
+                    finish();
+                }
+                else{
+                    openAlarmManager();
+                    finish();
+                }
             }
         }, 2500L);
 
@@ -66,6 +76,11 @@ public class MainActivity extends AppCompatActivity {
 
     public void openAlarmManager(){
         Intent intent = new Intent(this, ListActivity.class);
+        startActivity(intent);
+    }
+
+    public void openOnboarding(){
+        Intent intent = new Intent(this, Onboarding.class);
         startActivity(intent);
     }
 }

@@ -107,6 +107,10 @@ public class ListActivity extends AppCompatActivity {
                             Intent intent = new Intent(ctxt, Ring.class);
                             startActivity(intent);
                         }
+                        if (id==R.id.onboarding){
+                            Intent intent = new Intent(ctxt, Onboarding.class);
+                            startActivity(intent);
+                        }
 
 
                         return true;

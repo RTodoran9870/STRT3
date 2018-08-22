@@ -6,6 +6,8 @@
 
     <color name="greylight">#fafafa</color>
     <color name="startblue">#09c6df</color>
+    <color name="white">#ffffff</color>
     <color name="endblue">#0bcce6</color>
     <color name="primarydarkprofpage">#292b3d</color>
+    <color name="transparentwhite">#a8a9b2</color>
 </resources>
