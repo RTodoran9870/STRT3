@@ -1,9 +1,9 @@
 package com.example.rtodo.strt3;
 
+import android.app.AlarmManager;
 import android.app.AlertDialog;
 import android.app.Activity;
-import android.app.LauncherActivity;
-import android.app.ListActivity;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
@@ -13,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.Switch;
 import android.widget.TextView;
@@ -22,13 +23,13 @@ import android.widget.Toast;
 import com.example.rtodo.strt3.Model.ListItems;
 
 import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder> {
     public DatabaseHandler db;
     private Context context;
     private List<ListItems> listItems;
-    private Calendar mCalendar;
     private String sDay;
     private int mDay;
     private Activity activity;
@@ -72,8 +73,6 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
         public TextView alarmday;
         public Switch alarmswitch;
-        public RecyclerView.Adapter adapter;
-        public RecyclerView recyclerView;
         private ListItems alarmItem1;
         public List<AlarmItem> alarmItemList;
         public TextView alarmringtone;
@@ -82,8 +81,12 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         public ImageView imagevibrate;
         public TextView alarmhour;
         public TimePicker mTimePicker;
-        public Button mButton;
-        public Button mmButton;
+        public Button ConfirmButton;
+        public Button CancelButton;
+        private int alarm_hour;
+        private int alarm_minute;
+        private PendingIntent mPendingIntent;
+        public AlarmManager mAlarmManager;
 
         public ViewHolder(@NonNull View view) {
             super(view);
@@ -105,6 +108,73 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             imageringtone = view.findViewById(R.id.RingtoneId);
             imagevibrate = view.findViewById(R.id.VibrateID);
 
+
+
+            alarmswitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                    if(b){
+                        Toast.makeText(context, "Start Alarm", Toast.LENGTH_SHORT).show();
+                        mDay = getAdapterPosition();
+                        if (mDay == 0){
+                            sDay = "Monday";
+                        }else if (mDay == 1){
+                            sDay = "Tuesday";
+                        }else if (mDay == 2){
+                            sDay = "Wednesday";
+                        }else if (mDay == 3){
+                            sDay = "Thursday";
+                        }else if (mDay == 4){
+                            sDay = "Friday";
+                        }else if (mDay == 5){
+                            sDay = "Saturday";
+                        }else if (mDay == 6){
+                            sDay = "Sunday";
+                        }
+                        int alarm_day = (mDay + 1)%7 + 1;
+                        db = new DatabaseHandler(context);
+                        alarm_hour = db.getAlarmItem(mDay).getAlarmHour();
+                        alarm_minute = db.getAlarmItem(mDay).getAlarmMinute();
+                        Calendar nowCalendar = new GregorianCalendar();
+                        int now_day = nowCalendar.get(Calendar.DAY_OF_WEEK);
+                        int difference_days;
+                        if (alarm_day>now_day){
+                            difference_days = alarm_day - now_day;
+                        }else if (alarm_day<now_day){
+                            difference_days = alarm_day - now_day + 7;
+                        }else{
+                            int now_hour = nowCalendar.get(Calendar.HOUR_OF_DAY);
+                            int now_minute = nowCalendar.get(Calendar.MINUTE);
+                            if (alarm_hour*60 + alarm_minute > now_hour*60 + now_minute){
+                                difference_days = 0;
+                            }else {
+                                difference_days = 7;
+                            }
+                        }
+                        nowCalendar.add(Calendar.DAY_OF_YEAR, difference_days);
+                        nowCalendar.set(Calendar.HOUR_OF_DAY, alarm_hour);
+                        nowCalendar.set(Calendar.MINUTE, alarm_minute);
+                        nowCalendar.set(Calendar.SECOND, 0);
+
+
+                        Log.d("Calendar", nowCalendar.getTime().toString());
+                        Intent mIntent = new Intent(context, AlarmReceiver.class);
+                        mPendingIntent = PendingIntent.getBroadcast(context, 0, mIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+                        mAlarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+                        mAlarmManager.setRepeating(AlarmManager.RTC_WAKEUP, nowCalendar.getTimeInMillis(),7*24*3600*1000, mPendingIntent);
+
+
+                    }else {
+                        Toast.makeText(context, "Stop alarm", Toast.LENGTH_SHORT).show();
+                        Intent mIntent = new Intent(context, AlarmReceiver.class);
+                        mPendingIntent = PendingIntent.getBroadcast(context, 0, mIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+                        mAlarmManager.cancel(mPendingIntent);
+                        mPendingIntent.cancel();
+                    }
+                }
+            });
+            
+
         }
 
         @Override
@@ -113,6 +183,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                 int position = getAdapterPosition();
                 ListItems item = listItems.get(position);
                 startpopup();
+                Log.d("Test", "After popup");
             }
 
 
@@ -124,61 +195,52 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             mInflater = LayoutInflater.from(context);
             View view = mInflater.inflate(R.layout.popup, null);
             mTimePicker = view.findViewById(R.id.TimePickerID);
-            mButton = view.findViewById(R.id.PopupButtonID);
-            mmButton = view.findViewById(R.id.PopupButtonID2);
+            ConfirmButton = view.findViewById(R.id.ConfirmButtonID);
+            CancelButton = view.findViewById(R.id.CancelButtonID);
             mAlertDialogBuilder.setView(view);
             mDialog = mAlertDialogBuilder.create();
             mDialog.show();
 
-            mmButton.setOnClickListener(new View.OnClickListener() {
+            CancelButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     mDialog.dismiss();
                 }
             });
 
-            mButton.setOnClickListener(new View.OnClickListener() {
+            ConfirmButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    //mCalendar.set(Calendar.HOUR_OF_DAY, mTimePicker.getCurrentHour());
-                    //mCalendar.set(Calendar.MINUTE, mTimePicker.getCurrentMinute());
-                    //TODO: mcalendar not working
 
                     mDay = getAdapterPosition();
                     if (mDay == 0){
                         sDay = "Monday";
-                    }
-                    if (mDay == 1){
+                    }else if (mDay == 1){
                         sDay = "Tuesday";
-                    }
-                    if (mDay == 2){
+                    }else if (mDay == 2){
                         sDay = "Wednesday";
-                    }
-                    if (mDay == 3){
+                    }else if (mDay == 3){
                         sDay = "Thursday";
-                    }
-                    if (mDay == 4){
+                    }else if (mDay == 4){
                         sDay = "Friday";
-                    }
-                    if (mDay == 5){
+                    }else if (mDay == 5){
                         sDay = "Saturday";
-                    }
-                    if (mDay == 7){
+                    }else if (mDay == 6){
                         sDay = "Sunday";
                     }
 
-                    int mHour = mTimePicker.getCurrentHour();
-                    int mMinute = mTimePicker.getCurrentMinute();
+                    alarm_hour = mTimePicker.getCurrentHour();
+                    alarm_minute = mTimePicker.getCurrentMinute();
 
-                    String sHour = String.valueOf(mHour);
-                    String sMinute = String.valueOf(mMinute);
-                    if (mMinute < 10){
+                    String sHour = String.valueOf(alarm_hour);
+                    String sMinute = String.valueOf(alarm_minute);
+                    if (alarm_minute < 10){
                         sMinute = "0" + sMinute;
                     }
 
                     String sHM = sHour + ":" + sMinute;
 
-                    AlarmItem alarmItem = new AlarmItem(mDay, sDay, mMinute, mHour,sHM);
+                    AlarmItem alarmItem = new AlarmItem(mDay, sDay, alarm_minute, alarm_hour,sHM);
 
                     db = new DatabaseHandler(context);
 
@@ -200,9 +262,18 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                     notifyItemChanged(getAdapterPosition());
 
 
+                    Log.d("isChecked switch", "Initial " + alarmswitch.isChecked());
+
+                    alarmswitch.setChecked(false);
+                    Log.d("isChecked switch","after first togle" + alarmswitch.isChecked());
+                    alarmswitch.setChecked(true);
+                    Log.d("isChecked switch","after second togle" + alarmswitch.isChecked());
 
 
+
+                    Log.d("Test", "Before dismiss");
                     mDialog.dismiss();
+                    Log.d("Test", "After dismiss");
                 }
             });
         }

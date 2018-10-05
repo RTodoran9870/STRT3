@@ -62,7 +62,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         db.insert(Constants.TABLE_NAME, null, values);
     }
 
-    public AlarmItem getAlarmItem(String day){
+    public AlarmItem getAlarmItem(int id){
         SQLiteDatabase db = this.getWritableDatabase();
      //   Cursor cursor = db.query(Constants.TABLE_NAME, new String[] {Constants.KEY_ID, Constants.KEY_DAY, Constants.KEY_HOUR, Constants.KEY_MINUTE, Constants.KEY_HOURMINURE},
        //         Constants.KEY_ID + "=?",
@@ -71,7 +71,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
         Cursor cursor = db.query(Constants.TABLE_NAME, new String[] {Constants.KEY_ID, Constants.KEY_DAY, Constants.KEY_HOUR, Constants.KEY_MINUTE, Constants.KEY_HOURMINURE},
                 Constants.KEY_ID + " = ?",
-                new String[] {day}, null, null, null, null);
+                new String[] {String.valueOf(id)}, null, null, null, null);
 
         if (cursor != null) {
             cursor.moveToFirst();

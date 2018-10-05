@@ -23,5 +23,16 @@
          <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="profpagestyle1" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/primarydarkprofpage</item>
+        <item name="colorAccent">@color/primarydarkprofpage</item>
+    </style>
+
+    <style name="MyDarkToolbarStyle" parent="ThemeOverlay.AppCompat.Light">
+        <item name="android:colorBackground">#000000</item>
+        <item name="android:textColor">#ffffff</item>
+    </style>
+
 
 </resources>

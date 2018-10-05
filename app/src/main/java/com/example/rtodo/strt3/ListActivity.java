@@ -1,5 +1,6 @@
 package com.example.rtodo.strt3;
 
+import android.app.AlarmManager;
 import android.app.AlertDialog;
 import android.app.LauncherActivity;
 import android.content.Context;
@@ -26,6 +27,7 @@ import android.widget.TimePicker;
 import com.example.rtodo.strt3.Model.ListItems;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 public class ListActivity extends AppCompatActivity {
@@ -42,7 +44,8 @@ public class ListActivity extends AppCompatActivity {
     private DatabaseHandler db;
     public List<AlarmItem> alarmItemList;
     private Context ctxt;
-
+    public AlarmManager mAlarmManager;
+    public Calendar mCalendar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +59,11 @@ public class ListActivity extends AppCompatActivity {
 
         recyclerView = findViewById(R.id.RecyclerViewID);
         recyclerView.setHasFixedSize(true);
+
+        mAlarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
+        mCalendar = Calendar.getInstance();
+
+
 
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 

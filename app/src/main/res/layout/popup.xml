@@ -5,11 +5,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    style="@style/profpagestyle">
+    style="@style/profpagestyle1">
 
     <TimePicker
         android:id="@+id/TimePickerID"
-        android:numbersSelectorColor="@color/startblue"
+        android:numbersSelectorColor="@color/primarydarkprofpage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
@@ -19,7 +19,7 @@
         app:layout_constraintVertical_bias="0.0"></TimePicker>
 
     <Button
-        android:id="@+id/PopupButtonID"
+        android:id="@+id/ConfirmButtonID"
         style="?android:attr/borderlessButtonStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -29,7 +29,7 @@
         android:paddingTop="25dp"
         android:layout_marginTop="8dp"
         android:text="Confirm"
-        android:textColor="@color/startblue"
+        android:textColor="@color/primarydarkprofpage"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.95"
@@ -38,19 +38,19 @@
         app:layout_constraintVertical_bias="0.75" />
 
     <Button
-        android:id="@+id/PopupButtonID2"
+        android:id="@+id/CancelButtonID"
         style="?android:attr/borderlessButtonStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
-        android:paddingTop="25dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
+        android:paddingTop="25dp"
         android:text="Cancel"
-        android:textColor="@color/startblue"
+        android:textColor="@color/primarydarkprofpage"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/PopupButtonID"
+        app:layout_constraintEnd_toStartOf="@+id/ConfirmButtonID"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/TimePickerID"

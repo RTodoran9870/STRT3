@@ -11,9 +11,11 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:elevation="10dp"
+        app:cardBackgroundColor="#70ffffff"
         app:cardElevation="2dp">
 
         <RelativeLayout
+            android:id="@+id/back"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:padding="15dp">

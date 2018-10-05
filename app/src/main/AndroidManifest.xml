@@ -3,6 +3,10 @@
     package="com.example.rtodo.strt3">
 
     <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
 
     <application
         android:allowBackup="true"
@@ -23,16 +27,17 @@
         </activity>
         <activity
             android:name=".ListActivity"
-            android:label="@string/title_activity_list"
-            android:theme="@style/profpagestyle" />
+            android:label="payawake"
+            android:theme="@style/profpagestyle1" />
         <activity
             android:name=".MyProfile"
             android:label="@string/title_activity_my_profile"
-            android:theme="@style/profpagestyle" />
+            android:theme="@style/profpagestyle1" />
         <activity android:name=".Ring" />
         <activity android:name=".PaymentDetails" />
         <activity android:name=".Onboarding"
             android:theme="@style/profpagestyle"></activity>
+        <receiver android:name="AlarmReceiver"/>
     </application>
 
 </manifest>
